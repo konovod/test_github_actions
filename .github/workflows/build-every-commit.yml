@@ -23,9 +23,10 @@ jobs:
                     cd build
                     cmake -DCMAKE_BUILD_TYPE=Release -G "NMake Makefiles" ..
                     nmake
+                    cd
                     dir
             -   name: Upload Artifact
                 uses: actions/upload-artifact@v2
                 with:
                     name: nlopt_${{github.sha}}
-                    path: build/bin/nlopt.dll
+                    path: build/nlopt.dll
