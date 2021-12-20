@@ -83,6 +83,7 @@ jobs:
                     cd build
                     cmake -DCMAKE_BUILD_TYPE=Release -G "NMake Makefiles" ..
                     nmake
+                    dir
             -   name: Upload Artifact
                 uses: actions/upload-artifact@v2
                 with:
