@@ -20,15 +20,12 @@ jobs:
                     call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
                     md .build
                     cd ext
-                    cl /LD /O2 /MT monocypher.c monocypher-ed25519.c
+                    cl /c /EHsc /O2 /MT monocypher.c 
+                    cl /c /EHsc /O2 /MT monocypher-ed25519.c
+                    lib monocypher.o monocypher-ed25519.o
                     cd
                     dir
             -   name: Upload Artifact
-                uses: actions/upload-artifact@v2
-                with:
-                    name: monocypher_${{github.sha}}
-                    path: ext/*.dll
-            -   name: Upload Artifact2
                 uses: actions/upload-artifact@v2
                 with:
                     name: monocypher_${{github.sha}}
