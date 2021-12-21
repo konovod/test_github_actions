@@ -22,7 +22,7 @@ jobs:
                     cd ext
                     cl /c /EHsc /O2 /MT monocypher.c 
                     cl /c /EHsc /O2 /MT monocypher-ed25519.c
-                    lib monocypher.o monocypher-ed25519.o
+                    lib monocypher.obj monocypher-ed25519.obj
                     cd
                     dir
             -   name: Upload Artifact
