@@ -13,20 +13,23 @@ jobs:
             -   name: Checkout
                 uses: actions/checkout@v2
                 with:
-                    submodules: recursive
-                    repository: stevengj/nlopt
+                    repository: konovod/monocypher.cr
             -   name: Build
                 shell: cmd
                 run: |
                     call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-                    md build
-                    cd build
-                    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded -G "NMake Makefiles" ..
-                    nmake
+                    md .build
+                    cd ext
+                    cl /LD /O2 /MT monocypher.c monocypher-ed25519.c
                     cd
                     dir
             -   name: Upload Artifact
                 uses: actions/upload-artifact@v2
                 with:
-                    name: nlopt_${{github.sha}}
-                    path: build/nlopt.dll
+                    name: monocypher_${{github.sha}}
+                    path: .build/*.dll
+            -   name: Upload Artifact2
+                uses: actions/upload-artifact@v2
+                with:
+                    name: monocypher_${{github.sha}}
+                    path: .build/*.lib
