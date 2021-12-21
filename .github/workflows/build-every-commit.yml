@@ -10,23 +10,28 @@ jobs:
     build-windows-x64:
         runs-on: windows-latest
         steps:
-            -   name: Checkout
-                uses: actions/checkout@v2
-                with:
-                    repository: konovod/monocypher.cr
-            -   name: Build
-                shell: cmd
-                run: |
-                    call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-                    md .build
-                    cd ext
-                    cl /c /EHsc /O2 /MT monocypher.c 
-                    cl /c /EHsc /O2 /MT monocypher-ed25519.c
-                    lib monocypher.obj monocypher-ed25519.obj
-                    cd
-                    dir
-            -   name: Upload Artifact
-                uses: actions/upload-artifact@v2
-                with:
-                    name: monocypher_${{github.sha}}
-                    path: ext/*.lib
+            - name: Install Crystal
+              uses: oprypin/install-crystal@v1.5.3
+              with: 
+                shards: false
+            - name: Checkout
+              uses: actions/checkout@v2
+              with:
+                repository: konovod/monocypher.cr
+            - name: Build
+              shell: cmd
+              run: |
+                call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+                md .build
+                cd ext
+                cl /c /EHsc /O2 /MT monocypher.c 
+                cl /c /EHsc /O2 /MT monocypher-ed25519.c
+                lib monocypher.obj monocypher-ed25519.obj
+                set
+                cd
+                dir
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v2
+              with:
+                name: monocypher_${{github.sha}}
+                path: ext/*.lib
