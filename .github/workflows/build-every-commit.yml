@@ -22,9 +22,9 @@ jobs:
           cd llvm-build
           cmake ..\llvm-project\llvm -Thost=x64 -DLLVM_TARGETS_TO_BUILD="X86;AArch64;ARM;WebAssembly" -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded -DBUILD_SHARED_LIBS=OFF -DCMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH=OFF -DLLVM_INCLUDE_BENCHMARKS=OFF -DLLVM_INCLUDE_TESTS=OFF -DLLVM_ENABLE_ZSTD=OFF
           cmake --build . --config Release
-          cmake "-DCMAKE_INSTALL_PREFIX=$(pwd)\..\llvm" -P cmake_install.cmake
+          cmake "-DCMAKE_INSTALL_PREFIX=..\llvm" -P cmake_install.cmake
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: llvm_witharm_${{github.sha}}
-          path: D:/a/test_github_actions/test_github_actions/llvm/bin/LLVM-C.dll
+          path: llvm/bin/LLVM-C.dll
