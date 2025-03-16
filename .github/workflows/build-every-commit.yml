@@ -27,4 +27,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: llvm_witharm_${{github.sha}}
-          path: llvm/bin/LLVM-C.dll
+          path: |
+            llvm/bin/LLVM-C.dll
+            llvm/bin/llvm-tblgen.exe
+            llvm/include/llvm/IR/Attributes.inc
+            llvm/include/llvm/IR/IntrinsicEnums.inc
+            llvm/include/llvm/IR/IntrinsicImpl.inc
